@@ -24,8 +24,8 @@ end
 
 get("/square/results") do
     @num = params.fetch("number")
-    @ns = @num * @num
-    
+    @ns = (@num * @num).to_f
+
 
   erb(:square_results)
 end
