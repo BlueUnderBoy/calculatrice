@@ -23,5 +23,9 @@ get("/payment/new") do
 end
 
 get("/square/results") do
+    @num = params.fetch("number")
+    @ns = @num * @num
+    
+
   erb(:square_results)
 end
