@@ -23,7 +23,7 @@ get("/payment/new") do
 end
 
 get("/square/results") do
-    @num = params.fetch("number")
+    @num = params.fetch("number").to_i
     @ns = (@num * @num).to_f
 
 
