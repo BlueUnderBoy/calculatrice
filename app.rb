@@ -15,7 +15,7 @@ get("/square_root/new") do
 end
 
 get("/random/new") do
-  erb(:homepage)
+  erb(:random)
 end
 
 get("/payment/new") do
@@ -57,3 +57,12 @@ get("/payment/results") do
 
   erb(:payment_results)
 end
+
+get("/random/results") do
+
+  @min = params.fetch("min").to_f
+  @max = params.fetch("max").to_f
+
+  @random = rand(@min..@max)
+  erb(:random_results)
+end 
