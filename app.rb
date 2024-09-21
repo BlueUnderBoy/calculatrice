@@ -23,25 +23,25 @@ get("/payment/new") do
 end
 
 get("/square/results") do
-    @num = params.fetch("number").to_i
+    @num = params.fetch("number").to_f
     @ns = (@num * @num).to_f
   erb(:square_results)
 end
 
 get("/square_root/results") do
-  @num = params.fetch("number").to_i
+  @num = params.fetch("number").to_f
   @nsr = Math.sqrt(@num)
 erb(:squareroot_results)
 end
 
 get("/payment/results") do 
-  @raw_apr = params.fetch("apr").to_i
-  @raw_years = params.fetch("years").to_i
-  @raw_principal = params.fetch("principal").to_i
+  @raw_apr = params.fetch("apr").to_f
+  @raw_years = params.fetch("years").to_f
+  @raw_principal = params.fetch("principal").to_f
 
   @apr = format('%.4f', @raw_apr.to_f)  
   @years = @raw_years
-  @principal = format('%.2f', @raw_principal.to_f)
+  @principal = @raw_principal.to_fs(:currency)
 
   @rate = @raw_apr / 100.0 / 12 
   @n = (@years * 12)
@@ -51,8 +51,7 @@ get("/payment/results") do
   if p2.zero?
     @payment = 0 
   else
-    @payment = format('%.2f', (p1 / p2))
-    puts p2
+    @payment = (p1 / p2).to_fs(:currency)
   end
 
   erb(:payment_results)
