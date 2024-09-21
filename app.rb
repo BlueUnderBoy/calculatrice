@@ -43,15 +43,16 @@ get("/payment/results") do
   @years = @raw_years
   @principal = format('%.2f', @raw_principal.to_f)
 
-  @rate = @raw_apr / 100.0  
+  @rate = @raw_apr / 100.0 / 12 
   @n = (@years * 12)
   p1 = (@rate * @raw_principal)
-  p2 = (1 - (1 + @rate)**(-@n))  
+  p2 = (1 - ((1 + @rate)**(-@n)))  
 
   if p2.zero?
     @payment = 0 
   else
-    @payment = p1 / p2
+    @payment = format('%.2f', (p1 / p2))
+    puts p2
   end
 
   erb(:payment_results)
